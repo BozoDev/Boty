@@ -1,2 +1,3 @@
-# Boty
+# CoCerBot
 A playground for testing Bot related stuff
+Still a mess and only works for a specific scenario...
