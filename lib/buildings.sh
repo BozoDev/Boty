@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEBUG=1
+DEBUG=0
 tmp="/var/tmp/CoCBot"
 res="720 450"
 
