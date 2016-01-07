@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEBUG=1
+DEBUG=0
 res="720 450"
 
 log1="30 100"
