@@ -39,7 +39,7 @@ gold=[]
 elex=[]
 dark=[]
 
-template = cv2.imread('num_0.png',0)
+template = cv2.imread('digits/num_0.png',0)
 w, h = template.shape[::-1]
 res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
 threshold = 0.9
@@ -51,7 +51,7 @@ for pt in zip(*loc[::-1]):
 if i > 0:
   i -= 1
 for digit in range( 1, 10 ):
-  template = cv2.imread('num_' + format(digit) + '.png',0)
+  template = cv2.imread('digits/num_' + format(digit) + '.png',0)
   res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
   threshold = 0.9
   loc = np.where( res >= threshold)
@@ -75,7 +75,7 @@ digit=0
 img_rgb = cv2.imread('/tmp/CoCPyTroph.png')
 img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
 
-template = cv2.imread('tro_0.png',0)
+template = cv2.imread('digits/tro_0.png',0)
 w, h = template.shape[::-1]
 res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
 threshold = 0.9
@@ -87,7 +87,7 @@ for pt in zip(*loc[::-1]):
 if i > 0:
   i -= 1
 for digit in range( 1, 10 ):
-  template = cv2.imread('tro_' + format(digit) + '.png',0)
+  template = cv2.imread('digits/tro_' + format(digit) + '.png',0)
   res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
   threshold = 0.9
   loc = np.where( res >= threshold)
