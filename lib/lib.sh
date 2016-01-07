@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEBUG=1
+DEBUG=0
 
 _sdk="~/Android/Sdk"
 _adb="${_sdk}/platform-tools/adb"
