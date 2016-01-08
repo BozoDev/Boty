@@ -1,20 +1,63 @@
 #!/bin/bash
 
-DEBUG=0
+DEBUG=1
 
-_sdk="~/Android/Sdk"
+_sdk="/home/keith/Android/Sdk"
 _adb="${_sdk}/platform-tools/adb"
 _tmpDir="/var/tmp/CoCBot"
 
 cx=1
 cy=1
 cor=0
+# Moved to menues.sh
 . ./menues.sh
+# # vals for 640x400
+# empty1="620 181"
+# # 640x400:wake1="210 240"
+# wake1="235 270"
+# upgrade1="322 348"
+# upgrade2="358 350"
+# upgrade5="378 354"
+# up_conf1="381 245"
+# up_ok1="321 303"
+# up_ok2="330 290"
+# ok1="321 303"
+# ok2="330 290"
+# army1="26 310"
+# army_camp1="210 331"
+# army_camp2="247 331"
+# army_camp3="285 331"
+# army_room1="352 120"
+# army_room2="305 120"
+# army_barb="191 201"
+# army_arch="261 201"
+# army_gian="325 201"
+# army_gobl="393 201"
+# army_bomb="455 201"
 
+## 640x400:
+#startIT_cropper="265x60+165+150"
+# 720x450:
 startIT_cropper="250x95+170+175"
 loot_cropper="56x52+32+47"
 trophy_cropper="25x34+32+96"
 ownres_cropper="95x51+585+14"
+# # vals for 512x320
+# empty1="496 105"
+# upgrade1="258 279"
+# upgrade2="287 280"
+# up_conf1="305 196"
+# up_ok1="257 243"
+# army1="19 249"
+# army_camp1="169 265"
+# army_camp2="197 265"
+# army_room1="282 96"
+# army_room2="244 96"
+# army_barb="153 161"
+# army_arch="209 161"
+# army_gian="260 161"
+# army_gobl="315 161"
+# army_bomb="364 161"
 
 if [ ${#@} -gt 0 ] && [ $DEBUG -gt 1 ];then echo "DEBUG: checking args $@";fi
 while [ "A$1" != "A" ]
@@ -249,7 +292,63 @@ _avrCoor() {
   else
     echo "$((16#${arr[0]}))"
   fi
+  
 }
+# Press Key at x=39,y=262
+#$_adb shell sendevent /dev/input/event0 3 0 39
+#$_adb shell sendevent /dev/input/event0 3 1 262
+#$_adb shell sendevent /dev/input/event0 1 330 1
+#$_adb shell sendevent /dev/input/event0 0 0 0
+#$_adb shell sendevent /dev/input/event0 1 330 0
+#$_adb shell sendevent /dev/input/event0 0 0 0
+# Output from press 'Reload'
+#/dev/input/event0: 0003 0000 0000016c
+#/dev/input/event0: 0000 0000 00000000
+#/dev/input/event0: 0003 0001 00000164
+#/dev/input/event0: 0000 0000 00000000
+#/dev/input/event0: 0001 014a 00000001
+#/dev/input/event0: 0000 0000 00000000
+#/dev/input/event0: 0001 014a 00000000
+#/dev/input/event0: 0000 0000 00000000
+#
+#DragPress:
+# 0003 0000 0000007c
+# 0000 0000 00000000
+# 0003 0001 000001ac
+# 0000 0000 00000000
+# 0001 014a 00000001
+# 0000 0000 00000000
+# 0003 0000 0000007f
+# 0000 0000 00000000
+# 0003 0001 000001a9
+# 0000 0000 00000000
+# 0003 0000 00000082
+# 0000 0000 00000000
+# 0003 0001 000001a6
+# 0000 0000 00000000
+# 0003 0000 00000083
+# 0000 0000 00000000
+# 0003 0001 000001a5
+# 0000 0000 00000000
+# 0003 0000 00000084
+# 0000 0000 00000000
+# 0003 0000 00000085
+# 0000 0000 00000000
+# 0003 0001 000001a4
+# 0000 0000 00000000
+# 0003 0000 00000086
+# 0000 0000 00000000
+# 0003 0001 000001a3
+# 0000 0000 00000000
+#  [...] 
+# 0003 0000 00000127
+# 0000 0000 00000000
+# 0003 0001 00000136
+# 0000 0000 00000000
+# 0003 0000 00000128
+# 0000 0000 00000000
+# 0001 014a 00000000
+# 0000 0000 00000000
 
 touchScreen() {
   local x=$1
@@ -274,7 +373,6 @@ touchScreen() {
 }
 
 _touchScreenM() {
-# old and slow - use for 3 touches max...
   local x=$1
   shift
   local y=$1
@@ -327,6 +425,7 @@ _dragScreen() {
   done
   $_adb shell sendevent /dev/input/event0 1 330 0
   $_adb shell sendevent /dev/input/event0 0 0 0
+
 }
 
 dragScreen() {
@@ -352,6 +451,20 @@ dragScreen() {
 }
 
 touchScreenMFingers() {
+
+#   ABS (0003): 002f  : value 0, min 0, max 9, fuzz 0, flat 0, resolution 0
+#               0030  : value 0, min 0, max 31, fuzz 0, flat 0, resolution 0
+#               0035  : value 0, min 0, max 1279, fuzz 0, flat 0, resolution 0
+#               0036  : value 0, min 0, max 2111, fuzz 0, flat 0, resolution 0
+#               0039  : value 0, min 0, max 65535, fuzz 0, flat 0, resolution 0
+#               003a  : value 0, min 0, max 255, fuzz 0, flat 0, resolution 0
+# is:
+#   ABS (0003): ABS_MT_SLOT           : value 1, min 0, max 9, fuzz 0, flat 0, resolution 0
+#               ABS_MT_TOUCH_MAJOR    : value 0, min 0, max 31, fuzz 0, flat 0, resolution 0
+#               ABS_MT_POSITION_X     : value 0, min 0, max 1279, fuzz 0, flat 0, resolution 0
+#               ABS_MT_POSITION_Y     : value 0, min 0, max 2111, fuzz 0, flat 0, resolution 0
+#               ABS_MT_TRACKING_ID    : value 0, min 0, max 65535, fuzz 0, flat 0, resolution 0
+#               ABS_MT_PRESSURE       : value 0, min 0, max 255, fuzz 0, flat 0, resolution 0
   local x=${empty1% *}
   local y=${empty1#* }
   local i
@@ -512,9 +625,15 @@ selectBuildingOption() {
     esac
     y=390
     touchScreen $(( x+item*(30+item*2) )) $y
+# Not quite sure if I had adjusted this to new layout
+# found these in case need to revert:
+# 2 300
+# factor 25
+# y 350
 }
 
 upgradeBuilding() {
+# Pump 345 88
   local x=$1
   shift
   local y=$1
@@ -666,6 +785,35 @@ buildArmy() {
   done
 }
 
+buildArmyB() {
+###
+# Build an Army with in a specific barrack
+#
+# army1 =  small left Army-Organizer
+#
+# Params:
+#   N           int N is the barracks to use
+#   UNIT AMNT   How many to build of what (e.g.:
+#                   buildArmy 3 $army_arch 30 $army_barb 20
+#               would create 30 Archers and 20 Babarian in all 3 Barracks
+#               (150 units all in all)
+# TODO: this actualy passes the unit in x y coordinates - change to unit name and use reference via ${!unit}
+#       half done - remove extra locals
+  local xy n c o camp
+  touchScreen $army1
+  c=$1
+  shift
+  camp=army_camp$c
+  touchScreen ${!camp}
+  for (( i=1; i<${#@}; i+=2 ))
+  do
+    let n=i+1
+    xy=${!i}
+    _logger 1 "DEBUG: Calling tSM with ${!xy} ${!n}"
+    touchScreenM ${!xy} ${!n}
+  done
+}
+
 emptyBarracks() {
   local c camp
   touchScreen $army1
@@ -724,6 +872,7 @@ _attack() {
     then
       nexts=0
     fi
+#    let nexts--
   done
   dragScreen 240 350 300 190
   # Giant:
@@ -789,6 +938,8 @@ _attack() {
     sleep 5
     # touchScreen $empty1
   done
+
+# buildArmy 3 army_gian 3 army_arch 12 army_barb 12 army_bomb 1 - army_gobl 5
 }
 
 shareLastAttack() {
@@ -801,6 +952,7 @@ shareLastAttack() {
 
 shareLastDefense() {
     touchScreen $log1
+#    touchScreen $log_attack
     touchScreen $log_attShare
     touchScreen $log_attShare_ok
     touchScreen $empty1
